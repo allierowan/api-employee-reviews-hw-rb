@@ -33,5 +33,6 @@ class AppTest < Minitest::Test
   def test_read_single_employee
     response = get "/q/employee", id: 10
     assert response.ok?
+    assert_equal "Doug", JSON.parse(response.body)["name"]
   end
 end
