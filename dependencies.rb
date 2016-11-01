@@ -1,6 +1,7 @@
 require "bundler/setup"
 require "sinatra/base"
 require "json"
+require "pry"
 require_relative "employee"
 require_relative "department"
 require_relative "company"

@@ -29,4 +29,9 @@ class AppTest < Minitest::Test
     assert_equal "Jerkface", hash_response[0]["name"]
     assert_equal 39, hash_response.size
   end
+
+  def test_read_single_employee
+    response = get "/q/employee", id: 10
+    assert response.ok?
+  end
 end
