@@ -24,5 +24,9 @@ class App < Sinatra::Base
     ::Employee.create!(department_id: params["department_id"], name: params["name"], email: params["email"], salary: params["salary"], review: params["review"], satisfactory: params["satisfactory"], phone: params["phone"])
   end
 
+  delete "/d/employee" do
+    ::Employee.find(params["id"]).destroy
+  end
+
   run! if app_file == $PROGRAM_NAME
 end

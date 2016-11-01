@@ -50,4 +50,12 @@ class AppTest < Minitest::Test
     deoch = ::Employee.where(email: "deoch@theeolian.com").first
     assert_equal "Deoch", deoch.name
   end
+
+  def test_can_delete_an_employee
+    deoch = ::Employee.create!(name: "Deoch")
+    delete("/d/employee", {id: deoch.id})
+    assert_raises do
+      ::Employee.find(deoch.id)
+    end
+  end
 end
