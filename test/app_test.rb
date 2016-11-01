@@ -58,4 +58,10 @@ class AppTest < Minitest::Test
       ::Employee.find(deoch.id)
     end
   end
+
+  def test_can_change_an_employees_name
+    deoch = ::Employee.create!(name: "Deoch")
+    patch("u/employee", {id: deoch.id, new_name: "Elodin"})
+    assert_equal ::Employee.where(name: "Elodin").first.id, deoch.id
+  end
 end

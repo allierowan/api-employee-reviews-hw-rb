@@ -28,5 +28,9 @@ class App < Sinatra::Base
     ::Employee.find(params["id"]).destroy
   end
 
+  patch "/u/employee" do
+    ::Employee.find(params["id"]).update(name: params["new_name"])
+  end
+
   run! if app_file == $PROGRAM_NAME
 end
