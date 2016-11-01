@@ -1,0 +1,7 @@
+require "bundler/setup"
+require "sinatra/base"
+require "json"
+require_relative "employee"
+require_relative "department"
+require_relative "company"
+require_relative "development"
