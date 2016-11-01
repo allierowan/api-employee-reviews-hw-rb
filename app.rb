@@ -28,10 +28,22 @@ class App < Sinatra::Base
   end
 
   delete "/d/employee" do
+    input = request.body.read
+    unless input.empty?
+      input_hash = JSON.parse(input)
+      params.merge!(input_hash)
+    end
+    content_type("application/json")
     ::Employee.find(params["id"]).destroy
   end
 
   patch "/u/employee" do
+    input = request.body.read
+    unless input.empty?
+      input_hash = JSON.parse(input)
+      params.merge!(input_hash)
+    end
+    content_type("application/json")
     ::Employee.find(params["id"]).update(name: params["new_name"])
   end
 
