@@ -1,15 +1,6 @@
 require_relative "dependencies"
 
 class App < Sinatra::Base
-  get "/" do
-    "I am Groot"
-  end
-
-  post "/api/echo" do
-    payload = JSON.parse(request.body.read)
-    # [418, payload.to_json]
-    payload.to_json
-  end
 
   get "/q/employees" do
     # binding.pry
@@ -17,7 +8,8 @@ class App < Sinatra::Base
   end
 
   get "/q/employees_where" do
-    ::Employee.where(params).to_json if params.keys & Employee.attribute_names == params.keys
+    query = params.keys & Employee.attribute_names
+    ::Employee.where(query).to_json
   end
 
   get "/q/employee" do

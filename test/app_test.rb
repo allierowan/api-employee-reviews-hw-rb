@@ -14,21 +14,6 @@ class AppTest < Minitest::Test
     Employee.create!(name: "Wil", salary: 80000)
   end
 
-  def test_declares_its_name
-    response = get "/"
-    assert response.ok?
-    assert_equal "I am Groot", response.body
-  end
-
-  def test_it_handles_and_returns_json
-    hash = { name: "bob" }
-    response = post("/api/echo", hash.to_json, { "CONTENT_TYPE" => "application/json" })
-
-    assert response.ok?
-    payload = JSON.parse(response.body)
-    assert_equal({ "name" => "bob" }, payload)
-  end
-
   def test_can_get_all_employees
     response = get "/q/employees"
     assert response.ok?
