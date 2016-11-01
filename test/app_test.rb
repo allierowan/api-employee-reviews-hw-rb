@@ -7,6 +7,13 @@ class AppTest < Minitest::Test
     App
   end
 
+  def setup
+    ::Employee.delete_all
+    Employee.create!(name: "Kvothe", phone: "123-456-7891")
+    Employee.create!(name: "Sim", email: "sim@theuniversity.com")
+    Employee.create!(name: "Wil", salary: 80000)
+  end
+
   def test_declares_its_name
     response = get "/"
     assert response.ok?
@@ -26,13 +33,21 @@ class AppTest < Minitest::Test
     response = get "/q/employees"
     assert response.ok?
     hash_response = JSON.parse(response.body)
-    assert_equal "Jerkface", hash_response[0]["name"]
-    assert_equal 39, hash_response.size
+    assert_equal "Kvothe", hash_response[0]["name"]
+    assert_equal 3, hash_response.size
   end
 
   def test_read_single_employee
-    response = get "/q/employee", id: 10
+    tempi = ::Employee.create!(name: "Tempi")
+    emp_id = tempi.id
+    response = get "/q/employee", id: emp_id
     assert response.ok?
-    assert_equal "Doug", JSON.parse(response.body)["name"]
+    assert_equal "Tempi", JSON.parse(response.body)["name"]
+  end
+
+  def test_can_create_an_employee
+    post("/p/employee", {name: "Deoch", email: "deoch@theeolian.com"})
+    deoch = ::Employee.where(email: "deoch@theeolian.com").first
+    assert_equal "Deoch", deoch.name
   end
 end
