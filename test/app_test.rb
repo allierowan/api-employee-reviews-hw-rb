@@ -46,7 +46,7 @@ class AppTest < Minitest::Test
 
   def test_can_change_an_employees_name
     deoch = ::Employee.create!(name: "Deoch")
-    patch("u/employee", {id: deoch.id, new_name: "Elodin"}.to_json)
+    patch("/u/employee", {id: deoch.id, new_name: "Elodin"}.to_json)
     assert_equal ::Employee.where(name: "Elodin").first.id, deoch.id
   end
 end
