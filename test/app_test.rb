@@ -46,7 +46,7 @@ class AppTest < Minitest::Test
   end
 
   def test_can_create_an_employee
-    post("/p/employee", {name: "Deoch", email: "deoch@theeolian.com"})
+    post("/p/employee", {name: "Deoch", email: "deoch@theeolian.com"}.to_json)
     deoch = ::Employee.where(email: "deoch@theeolian.com").first
     assert_equal "Deoch", deoch.name
   end

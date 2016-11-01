@@ -12,7 +12,12 @@ class App < Sinatra::Base
   end
 
   get "/q/employees" do
+    # binding.pry
     ::Employee.all.to_json
+  end
+
+  get "/q/employees_where" do
+    ::Employee.where(params).to_json if params.keys & Employee.attribute_names == params.keys
   end
 
   get "/q/employee" do
@@ -21,6 +26,12 @@ class App < Sinatra::Base
   end
 
   post "/p/employee" do
+    input = request.body.read
+    unless input.empty?
+      input_hash = JSON.parse(input)
+      params.merge!(input_hash)
+    end
+    content_type("application/json")
     ::Employee.create!(department_id: params["department_id"], name: params["name"], email: params["email"], salary: params["salary"], review: params["review"], satisfactory: params["satisfactory"], phone: params["phone"])
   end
 
